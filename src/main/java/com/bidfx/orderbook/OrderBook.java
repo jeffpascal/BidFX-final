@@ -76,12 +76,12 @@ public class OrderBook {
 			return;
 		} else// other 3 cases
 			for (int i = 0; i < orderBook.size(); i++) {
-				if (orderBook.get(i).getPrice() == order.getPrice()) {
+				if (orderBook.get(i).getPrice() == order.getPrice()) { //CASE IF WE HAVE EQUAL NEW PRICE SHARE
 					orderBook.add(i + 1, order);
 					update.put("BidSize".concat(String.valueOf(i + 1)), order.getSize() + orderBook.get(i).getSize());
 
 					return; // make sure we leave add function
-				} else if (orderBook.get(i).getPrice() < order.getPrice()) {
+				} else if (orderBook.get(i).getPrice() < order.getPrice()) {//CASE IF WE HAVE HIGHER NEW PRICE SHARE
 					orderBook.add(i, order);
 
 					for (int j = 0; j < orderBook.size(); j++) {
@@ -90,7 +90,7 @@ public class OrderBook {
 
 					}
 					return; // make sure we leave add function
-				} else if (orderBook.get(i).getPrice() > order.getPrice()) {
+				} else if (orderBook.get(i).getPrice() > order.getPrice()) { //CASE IF WE HAVE LOWER NEW PRICE SHARE
 					int newIndex = 0;
 					for (int j = orderBook.size() - 1; j >= 0; j--) {
 						if (orderBook.get(j).getPrice() > order.getPrice()) {
