@@ -18,19 +18,22 @@ import java.util.TreeMap;
  */
 @SuppressWarnings("all")
 public class OrderBook {
-    
-    /** Represents the Delta after a remove/add operation
-    */
+
+    /**
+     * Represents the Delta after a remove/add operation
+     */
     private TreeMap<String, Object> updateDelta;
-    
-    /** Represents an orderBook
+
+    /**
+     * Represents an orderBook
      */
     public ArrayList<Order> orderBook = new ArrayList<Order>();
 
-    
-    /** Adds an order to orderBook
+    /**
+     * Adds an order to orderBook
+     * 
      * @param order The order to be added
-    */
+     */
     public void add(Order order) {
         updateDelta = new TreeMap<String, Object>();
         if (orderBook.size() == 0) { // if the array is empty
@@ -41,9 +44,11 @@ public class OrderBook {
             addIfNotFirst(order); // method call to add if the order is not the first one to be added
     }
 
-    /** Removes an order from orderBook
+    /**
+     * Removes an order from orderBook
+     * 
      * @param order The order to be removed
-    */
+     */
     public void remove(Order order) {
         updateDelta = new TreeMap<String, Object>();
         for (int i = 0; i < orderBook.size(); i++)
@@ -94,12 +99,12 @@ public class OrderBook {
 
         }
     }
-    
+
     /**
      * Removes order at index given if it is the last one
      * 
      * @param indexToRemove the index of the order to be removed
-     * @param order Order to be removed
+     * @param order         Order to be removed
      */
     public void removeIfLast(int indexToRemove, Order order) {
         long sizeIfPriceEqual = 0;
@@ -118,12 +123,12 @@ public class OrderBook {
 
         return;
     }
-    
+
     /**
      * Removes order at index given if it is not the last one
      * 
      * @param indexToRemove the index of the order to be removed
-     * @param order Order to be removed
+     * @param order         Order to be removed
      */
     private void removeIfNotLast(int indexToRemove, Order order) {
         for (int j = indexToRemove + 1; j < orderBook.size(); j++) {
@@ -144,9 +149,11 @@ public class OrderBook {
 
     }
 
-    /** Return the delta (the changes)
+    /**
+     * Return the delta (the changes)
+     * 
      * @return The updated delta variable
-    */
+     */
     public Map<String, Object> getChangedLevels() {
         // TODO Auto-generated method stub
 
