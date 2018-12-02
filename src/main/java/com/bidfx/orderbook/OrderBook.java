@@ -18,25 +18,25 @@ import java.util.TreeMap;
  */
 @SuppressWarnings("all")
 public class OrderBook {
-	private TreeMap<String, Object> update;
+	private TreeMap<String, Object> updateDelta;
 	public ArrayList<Order> orderBook = new ArrayList<Order>();
 
 	public void remove(Order order) {
-		update = new TreeMap<String, Object>();
+		updateDelta = new TreeMap<String, Object>();
 		for (int i = 0; i < orderBook.size(); i++) {
 			if (orderBook.get(i).getOrderId() == order.getOrderId()) {
 				if (i == orderBook.size() - 1) { // if we're removing last element
-					long size = 0;
+					long sizeIfPriceEqual = 0;
 					orderBook.remove(i);
 					for (int j = 0; j < i; j++) {
 						if (orderBook.get(j).getPrice() == order.getPrice())
-							size = size + orderBook.get(j).getSize();
+						    sizeIfPriceEqual = sizeIfPriceEqual + orderBook.get(j).getSize();
 					}
-					if (size > 0) {
-						update.put("BidSize".concat(String.valueOf(i)), size);
+					if (sizeIfPriceEqual > 0) {
+						updateDelta.put("BidSize".concat(String.valueOf(i)), sizeIfPriceEqual);
 					} else {
-						update.put("BidSize".concat(String.valueOf(i + 1)), null);
-						update.put("Bid".concat(String.valueOf(i + 1)), null);
+						updateDelta.put("BidSize".concat(String.valueOf(i + 1)), null);
+						updateDelta.put("Bid".concat(String.valueOf(i + 1)), null);
 					}
 					// format test requirement if element to remove is last
 
@@ -46,17 +46,17 @@ public class OrderBook {
 
 					for (int j = i + 1; j < orderBook.size(); j++) {
 						// format for every element present after removed item
-						update.put("BidSize".concat(String.valueOf(j)), orderBook.get(j).getSize());
-						update.put("Bid".concat(String.valueOf(j)), orderBook.get(j).getPrice());
+						updateDelta.put("BidSize".concat(String.valueOf(j)), orderBook.get(j).getSize());
+						updateDelta.put("Bid".concat(String.valueOf(j)), orderBook.get(j).getPrice());
 
 					}
-					long size = 0;
-					for (int j = 0; j < i; j++) { // make sure Size update is right
+					long sizeIfPriceEqual = 0;
+					for (int j = 0; j < i; j++) { // make sure Size updateDelta is right
 						if (orderBook.get(j).getPrice() == order.getPrice())
-							size = size + orderBook.get(j).getSize();
+						    sizeIfPriceEqual = sizeIfPriceEqual + orderBook.get(j).getSize();
 					}
-					if (size > 0) {
-						update.put("BidSize".concat(String.valueOf(i)), size);
+					if (sizeIfPriceEqual > 0) {
+						updateDelta.put("BidSize".concat(String.valueOf(i)), sizeIfPriceEqual);
 					}
 					orderBook.remove(i);
 				}
@@ -68,25 +68,25 @@ public class OrderBook {
 	}
 
 	public void add(Order order) {
-		update = new TreeMap<String, Object>();
+		updateDelta = new TreeMap<String, Object>();
 		if (orderBook.size() == 0) { // if the array is empty
 			orderBook.add(order);
-			update.put("Bid1", order.getPrice());
-			update.put("BidSize1", order.getSize());
+			updateDelta.put("Bid1", order.getPrice());
+			updateDelta.put("BidSize1", order.getSize());
 			return;
 		} else// other 3 cases
 			for (int i = 0; i < orderBook.size(); i++) {
 				if (orderBook.get(i).getPrice() == order.getPrice()) { //CASE IF WE HAVE EQUAL NEW PRICE SHARE
 					orderBook.add(i + 1, order);
-					update.put("BidSize".concat(String.valueOf(i + 1)), order.getSize() + orderBook.get(i).getSize());
+					updateDelta.put("BidSize".concat(String.valueOf(i + 1)), order.getSize() + orderBook.get(i).getSize());
 
 					return; // make sure we leave add function
 				} else if (orderBook.get(i).getPrice() < order.getPrice()) {//CASE IF WE HAVE HIGHER NEW PRICE SHARE
 					orderBook.add(i, order);
 
 					for (int j = 0; j < orderBook.size(); j++) {
-						update.put("Bid".concat(String.valueOf(j + 1)), orderBook.get(j).getPrice());
-						update.put("BidSize".concat(String.valueOf(j + 1)), orderBook.get(j).getSize());
+						updateDelta.put("Bid".concat(String.valueOf(j + 1)), orderBook.get(j).getPrice());
+						updateDelta.put("BidSize".concat(String.valueOf(j + 1)), orderBook.get(j).getSize());
 
 					}
 					return; // make sure we leave add function
@@ -97,8 +97,8 @@ public class OrderBook {
 
 							newIndex = j + 1;
 							orderBook.add(newIndex, order);
-							update.put("Bid".concat(String.valueOf(newIndex + 1)), order.getPrice());
-							update.put("BidSize".concat(String.valueOf(newIndex + 1)), order.getSize());
+							updateDelta.put("Bid".concat(String.valueOf(newIndex + 1)), order.getPrice());
+							updateDelta.put("BidSize".concat(String.valueOf(newIndex + 1)), order.getSize());
 							return; // make sure we leave add function
 						}
 					}
@@ -112,7 +112,7 @@ public class OrderBook {
 	public Map<String, Object> getChangedLevels() {
 		// TODO Auto-generated method stub
 
-		return update;
+		return updateDelta;
 	}
 
 	// TODO Implement your custom logic here
