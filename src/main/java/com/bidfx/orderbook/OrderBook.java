@@ -106,7 +106,7 @@ public class OrderBook {
      * @param indexToRemove the index of the order to be removed
      * @param order         Order to be removed
      */
-    public void removeIfLast(int indexToRemove, Order order) {
+    private void removeIfLast(int indexToRemove, Order order) {
         long sizeIfPriceEqual = 0;
         orderBook.remove(indexToRemove);
         for (int j = 0; j < indexToRemove; j++) {
