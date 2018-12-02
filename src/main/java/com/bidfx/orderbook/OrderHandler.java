@@ -6,7 +6,7 @@ package com.bidfx.orderbook;
 
 import java.util.Map;
 
-/**
+/** 
  * This class adapts orders coming from a remote price service and builds the
  * {@link OrderBook}. On receipt of a new order it publishes changes to the
  * order book as a map.

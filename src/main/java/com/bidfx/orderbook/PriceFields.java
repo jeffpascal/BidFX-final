@@ -4,7 +4,7 @@
 
 package com.bidfx.orderbook;
 
-/**
+/** 
  * A set of static fields that define keys for the price map.
  *
  * @author BidFX Systems Limited

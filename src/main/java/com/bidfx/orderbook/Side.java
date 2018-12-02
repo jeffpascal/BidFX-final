@@ -4,7 +4,7 @@
 
 package com.bidfx.orderbook;
 
-/**
+/** 
  * Represents the side of the book an order will be for, either bid or ask.
  *
  * @author BidFX Systems Limited
