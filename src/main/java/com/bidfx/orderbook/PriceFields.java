@@ -11,25 +11,25 @@ package com.bidfx.orderbook;
  */
 @SuppressWarnings("all")
 public class PriceFields {
-    public static final String BID = "Bid";
+    public static final String BID = "Bid1";
     public static final String BID2 = "Bid2";
     public static final String BID3 = "Bid3";
     public static final String BID4 = "Bid4";
     public static final String BID5 = "Bid5";
 
-    public static final String BID_SIZE = "BidSize";
+    public static final String BID_SIZE = "BidSize1";
     public static final String BID_SIZE2 = "BidSize2";
     public static final String BID_SIZE3 = "BidSize3";
     public static final String BID_SIZE4 = "BidSize4";
     public static final String BID_SIZE5 = "BidSize5";
 
-    public static final String ASK = "Ask";
+    public static final String ASK = "Ask1";
     public static final String ASK2 = "Ask2";
     public static final String ASK3 = "Ask3";
     public static final String ASK4 = "Ask4";
     public static final String ASK5 = "Ask5";
 
-    public static final String ASK_SIZE = "AskSize";
+    public static final String ASK_SIZE = "AskSize1";
     public static final String ASK_SIZE2 = "AskSize2";
     public static final String ASK_SIZE3 = "AskSize3";
     public static final String ASK_SIZE4 = "AskSize4";

@@ -16,14 +16,23 @@ import java.util.Map;
 @SuppressWarnings("all")
 public class OrderHandler {
     private OrderBook orderBook = new OrderBook();
-
+    private int numberOfOrders = 0;
+    
+   
     public Map<String, Object> handleOrder(Order order) {
         // TODO: Handle incoming order
+    	if(order.getSize() == 0){
+    		orderBook.remove(order);
+    	}
+    	else{
+    		orderBook.add(order);
+    	}
+    	
         return publishChangedLevels();
     }
 
     private Map<String, Object> publishChangedLevels() {
         // TODO: Publish a price map containing what price levels have changed
-        return null;
+        return orderBook.getChangedLevels();
     }
 }
